@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+
+<toolbox>
+	<xhtml>true</xhtml>
+	<tool>
+		<key>stringUtil</key>
+		<scope>application</scope>
+		<class>org.apache.commons.lang.StringUtils</class>
+	</tool>
+	<tool>
+		<key>hostUtil</key>
+		<scope>application</scope>
+		<class>com.eyeieye.melody.util.HostUtil</class>
+	</tool>
+	<!--  
+	<tool>
+		<key>moneyUtil</key>
+		<scope>application</scope>
+		<class>com.ec.biz.common.utils.MoneyUtil</class>
+	</tool>
+		<tool>
+		<key>accountUtil</key>
+		<scope>application</scope>
+		<class>com.ec.biz.util.AccountUtil</class>
+	</tool>
+	<tool>
+		<key>contain</key>
+		<scope>request</scope>
+		<class>com.eyeieye.melody.web.contain.Contain</class>
+	</tool>
+	<tool>
+		<key>iDemand</key>
+		<scope>request</scope>
+		<class>com.eyeieye.melody.web.velocity.IDemand</class>
+	</tool>
+	<tool>
+		<key>htmlUtils</key>
+		<scope>application</scope>
+		<class>com.eyeieye.melody.util.HtmlUtils</class>
+	</tool>
+	<tool>
+		<key>dateUtil</key>
+		<scope>application</scope>
+		<class>com.ec.biz.util.DateUtil</class>
+	</tool>
+	<tool>
+     <key>vlocale</key>
+     <scope>application</scope>
+     <class>com.eyeieye.melody.web.locale.VisitorLocale</class>    
+   </tool>
+   <tool>
+		<key>math</key>
+		<scope>application</scope>
+		<class>org.apache.velocity.tools.generic.MathTool</class>
+	</tool>
+	<tool>
+        <key>number</key>
+        <scope>application</scope>
+        <class>org.apache.velocity.tools.generic.NumberTool</class>
+    </tool>
+    -->
+    <!-- 广告 -->
+    
+<!--     <tool>
+        <key>adUtil</key>
+        <scope>application</scope>
+        <class>com.ec.biz.common.utils.AdUtil</class>
+    </tool> -->
+    
+    <!-- 推荐 -->
+<!--     <tool>
+        <key>recommendUtil</key>
+        <scope>application</scope>
+        <class>com.ec.biz.common.utils.RecommendUtil</class>
+    </tool> -->
+    
+    <!-- 通过util，里面有好多方法 -->
+<!--     <tool>
+        <key>commonUtil</key>
+        <scope>application</scope>
+        <class>com.ec.biz.util.CommonUtil</class>
+    </tool> -->
+    <!-- 获取大中小图片路径 -->
+<!--     <tool>
+      <key>imageSizePathUtil</key>
+      <scope>request</scope>
+      <class>com.design.biz.util.ImageSizePathUtil</class>
+    </tool>
+    <tool>
+        <key>wordUtil</key>
+        <scope>application</scope>
+        <class>com.ec.biz.util.WordUtil</class>
+    </tool> -->
+    <!-- 金钱转换 -->
+<!--       <tool>
+        <key>convertShowUtils</key>
+        <scope>application</scope>
+        <class>com.design.biz.util.ConvertShowUtils</class>
+    </tool> -->
+
+    <!-- 图片处理方式 -->
+<!--     <tool>
+        <key>imgEditTypeUtil</key>
+        <scope>application</scope>
+        <class>com.design.biz.util.ImgEditTypeUtil</class>
+    </tool> -->
+    <!-- 城市code  用于前台页面区分全国/北京站  从而显示不同的内容 -->
+<!--     <tool>
+        <key>provinceDiscriminateUtil</key>
+        <scope>application</scope>
+        <class>com.design.biz.util.ProvinceDiscriminateUtil</class>
+    </tool> -->
+</toolbox>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="UserSQL">
+	<typeAlias alias="User" type="com.ec.biz.user.domain.User" />
+	<typeAlias alias="UserQuery" type="com.ec.biz.user.query.UserQuery" />
+
+	<resultMap class="User" id="BaseResultMap">
+		<result property="id" column="id" jdbcType="DECIMAL" />
+		<result property="userName" column="user_name" jdbcType="VARCHAR" />
+		<result property="password" column="password" jdbcType="VARCHAR" />
+		<result property="sex" column="sex" jdbcType="DECIMAL" />
+		<result property="realName" column="real_name" jdbcType="VARCHAR" />
+		<result property="gmtCreate" column="gmt_create" jdbcType="Timestamp" />
+		<result property="gmtModify" column="gmt_create" jdbcType="Timestamp" />
+		<result property="isDeleted" column="is_deleted" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="baseColumns">
+		id,
+		user_name,
+		password,
+		sex,
+		real_name,
+		gmt_create,
+		gmt_modify,
+		is_deleted
+	</sql>
+
+	<sql id="getUserListWhereClause">
+		<isNotEmpty prepend="and" property="id">
+			id=#id#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="sex">
+			sex = #sex#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="account">
+			account = #account#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="password">
+			password = #password#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="realName">
+			real_name = #realName#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="isDeleted">
+			is_deleted = #isDeleted#
+		</isNotEmpty>
+	</sql>
+
+	<!-- 获取用户列表的总数量 -->
+	<select id="getUserListCount" resultClass="java.lang.Integer"
+		parameterClass="UserQuery">
+		select count(*) from USER
+		<dynamic prepend="where">
+			<include refid="getUserListWhereClause" />
+		</dynamic>
+	</select>
+	<!-- 获取用户列表 -->
+	<select id="getUserList" resultMap="BaseResultMap"
+		parameterClass="UserQuery">
+		<isNotEmpty property="pageFristItem">
+			<isNotEmpty property="pageLastItem">
+                <![CDATA[SELECT * FROM (SELECT ROWNUM AS NUM, t.* from (]]>
+			</isNotEmpty>
+		</isNotEmpty>
+		select
+		<include refid="baseColumns" />
+		from User
+		<dynamic prepend="where">
+			<include refid="getProjectListWhereClause" />
+		</dynamic>
+		<isNotEmpty property="pageFristItem">
+			<isNotEmpty property="pageLastItem">
+                <![CDATA[) t WHERE ROWNUM <= #pageLastItem#) WHERE NUM >= #pageFristItem#]]>
+			</isNotEmpty>
+		</isNotEmpty>
+	</select>
+
+	<insert id="addUser" parameterClass="User">
+		<selectKey resultClass="java.lang.Long" keyProperty="id"
+			type="pre">
+			SELECT SEQ_USER.NEXTVAL AS ID FROM DUAL
+		</selectKey>
+		insert into DESIGN_PROJECT TB_PRO (
+		<include refid="baseColumns" />
+		)
+		values (
+		#id#,
+		#user_name#,
+		#sex#,
+		#real_name#,
+		sysdate,
+		sysdate,
+		'N'
+		)
+	</insert>
+
+	<update id="updateUser" parameterClass="User">
+		update user
+		set gmt_modify = sysdate
+		<isNotNull prepend="," property="userName">
+			user_name = #userName#
+		</isNotNull>
+		<isNotNull prepend="," property="sex">
+			sex = #sex#
+		</isNotNull>
+		<isNotNull prepend="," property="realName">
+			real_name = #realName#
+		</isNotNull>
+		where id = #id# and is_deleted = 'N'
+	</update>
+
+	<delete id="deleteById" parameterClass="User">
+		delete user where id = #id# and is_deleted = 'N'
+	</delete>
+
+	<update id="updateIsDeleted" parameterClass="User">
+		update user
+		set gmt_modify = sysdate,is_deleted = #isDeleted#
+		where id = #id# and is_deleted = 'N'
+	</update>
+
+
+
+</sqlMap>

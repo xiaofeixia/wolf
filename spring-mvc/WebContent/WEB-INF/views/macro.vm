@@ -1,0 +1,66 @@
+#macro ( direct $direct-output )$!direct-output#end
+#macro ( c $paras )
+	#if($!paras)
+		#set($content = "")
+		#set($key = "")
+		#set($value = "")
+		#foreach($para in $paras)
+			#if($velocityCount == 1)
+				#set($content = $contain.get($!para))
+			#else
+				#if($velocityCount % 2 == 0)
+					#set($key = $para)
+				#else
+					#set($value = $para)
+				#end
+				#set($content = $content.setParameter($key, $value))
+			#end
+		#end
+		$!content
+	#end
+#end
+##买家信用积分对应
+#macro(MACROShowBuyerCreditRatePic $creditPointTmp)
+	<div class="user-level" title="$!userLevelUtil.getBuyerCreditPointLevel($creditPointTmp)级"><div class="level-$!userLevelUtil.getBuyerCreditPointLevel($creditPointTmp)">&nbsp;</div></div>
+#end
+## 卖家信用积分对应的图片
+#macro(MACROShowSellerCreditRatePic $creditPointTmp)
+	<div class="shop-level" title="$!userLevelUtil.getSellerCreditPointLevel($creditPointTmp)"级"><div class="level-$!userLevelUtil.getSellerCreditPointLevel($creditPointTmp)">&nbsp;</div></div>
+#end
+
+
+#macro ( pager $page $form $action $expression )
+	$contain.get("/common/pager.htm").setParameter("page", $page).setParameter("action", $action).setParameter("form", $form).setParameter("expression", $expression)
+#end
+
+##type
+##默认为0：显示"共num条"
+##     1：无显示"
+##     2：按正常翻页显示"
+#macro ( turnPage $page $form $type $action $expression )
+    $contain.get("/common/turnPage.htm").setParameter("page", $page).setParameter("type", $type).setParameter("action", $action).setParameter("form", $form).setParameter("expression", $expression)
+#end
+
+#macro ( easyTurnPage $page $form $action $expression )
+    $contain.get("/common/easyTurnPage.htm").setParameter("page", $page).setParameter("action", $action).setParameter("form", $form).setParameter("expression", $expression)
+#end
+
+#macro( adViewUrl $adDetail $type)
+	$appServer.get('/common/view_ads.htm').put("positionId",$!{adDetail.adPositionId}).put("adId",$!{adDetail.adId}).put("type",$!{type})
+#end
+
+#macro( showHeadUrl $headUrl $w $h) 
+    #set($defaultUrl = "$imgServer/images/unknown.png") 
+    #if($headUrl && "$headUrl" != "")
+        #if($w && $h) 
+            #set($defaultUrl = "$upServer/"+$headUrl+"_"+$w+"_"+$h+".img") 
+        #elseif($w) 
+            #set($defaultUrl = "$upServer/"+$headUrl+"_"+$w+".img") 
+        #elseif($h) 
+            #set($defaultUrl = "$upServer/"+$headUrl+"_"+$h+".img") 
+        #else 
+            #set($defaultUrl = "$upServer/"+$headUrl) 
+        #end 
+    #end 
+    $!defaultUrl 
+#end
